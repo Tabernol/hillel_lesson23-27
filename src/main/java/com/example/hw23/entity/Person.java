@@ -20,5 +20,5 @@ public class Person {
     @Column(name = "surname")
     private String surname;
 
-    //private List<Animal> pet;
+    private List<Animal> pet;
 }

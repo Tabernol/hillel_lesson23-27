@@ -7,12 +7,16 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonRepositoryImpl {
 
     private final EntityManager entityManager;
-@Autowired
+    private AnimalRepositoryImpl animalRepository;
+    private Person person;
+
+    @Autowired
     public PersonRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -45,4 +49,11 @@ public class PersonRepositoryImpl {
         session.update(String.valueOf(id), person);
         return person;
     }
+
+//    public void addAnimal(Animal animal) {
+//        if (person.getPet() == null) {
+//            person.setPet(new ArrayList<>());
+//        }
+//        person.getPet().add(animal);
+//    }
 }

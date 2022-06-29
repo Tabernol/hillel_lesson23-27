@@ -19,4 +19,8 @@ public class Animal {
 
     @Column(name = "name")
     private String name;
+
+//    @ManyToOne
+//    @JoinColumn(name = "owner_id", nullable = false)
+//    private Person ownerId;
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,5 +21,6 @@ public class Person {
     @Column(name = "surname")
     private String surname;
 
-    private List<Animal> pet;
+//    @OneToMany(mappedBy = "ownerId")
+//    private List<Animal> pet;
 }

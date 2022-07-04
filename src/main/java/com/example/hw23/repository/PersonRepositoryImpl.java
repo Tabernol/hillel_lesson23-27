@@ -5,11 +5,12 @@ import com.example.hw23.entity.Person;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class PersonRepositoryImpl {
 
     private final EntityManager entityManager;

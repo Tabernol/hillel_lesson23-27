@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnimalService {
@@ -17,7 +18,7 @@ public class AnimalService {
         this.animalRepository = animalRepository;
     }
 
-    public Animal get(int id) {
+    public Optional<Animal> get(int id) {
         return animalRepository.getAnimal(id);
     }
 
@@ -33,8 +34,8 @@ public class AnimalService {
         animalRepository.deleteAnimal(id);
     }
 
-    public Animal update(int id, Animal animal){
-        return animalRepository.updateAnimal(id,animal);
-    }
+//   // public Animal update(int id, Animal animal){
+//        return animalRepository.updateAnimal(id,animal);
+//    }
 
 }

@@ -3,11 +3,11 @@ package com.example.hw23.controller;
 import com.example.hw23.entity.Animal;
 import com.example.hw23.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/animal")
@@ -21,7 +21,7 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody Animal getAnimal(@PathVariable Integer id) {
+    public @ResponseBody Optional<Animal> getAnimal(@PathVariable Integer id) {
         return this.animalService.get(id);
     }
 
@@ -30,11 +30,11 @@ public class AnimalController {
         return animalService.getAll();
     }
 
-    @PatchMapping("/{id}")
-    @Transactional
-    public @ResponseBody Animal updateAnimal(@PathVariable Integer id, @RequestBody Animal animal) {
-        return this.animalService.update(id, animal);
-    }
+//    @PatchMapping("/{id}")
+//    @Transactional
+//    public @ResponseBody Animal updateAnimal(@PathVariable Integer id, @RequestBody Animal animal) {
+//        return this.animalService.update(id, animal);
+//    }
 
     @PostMapping()
     public void saveAnimal(@RequestBody Animal animal) {

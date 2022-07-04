@@ -18,7 +18,7 @@ public class AnimalService {
         this.animalRepository = animalRepository;
     }
 
-    public Optional<Animal> get(int id) {
+    public Animal get(int id) {
         return animalRepository.getAnimal(id);
     }
 
@@ -34,8 +34,8 @@ public class AnimalService {
         animalRepository.deleteAnimal(id);
     }
 
-//   // public Animal update(int id, Animal animal){
-//        return animalRepository.updateAnimal(id,animal);
-//    }
+    public Animal update(int id, Animal animal) {
+        return animalRepository.updateAnimal(id, animal);
+    }
 
 }

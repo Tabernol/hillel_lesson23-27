@@ -16,11 +16,11 @@ public class Person {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int personId;
 
     @Column(name = "surname")
     private String surname;
 
-//    @OneToMany(mappedBy = "ownerId")
-//    private List<Animal> pet;
+    @OneToMany(mappedBy = "ownerId")
+    private List<Animal> pet;
 }

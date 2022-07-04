@@ -11,54 +11,38 @@ import java.util.Optional;
 
 @Component
 public class AnimalRepositoryImpl {
-
-    // private final EntityManager entityManager;
-    private final AnimalRepository animalRepository;
-
     @Autowired
-    public AnimalRepositoryImpl(AnimalRepository animalRepository) {
-        this.animalRepository = animalRepository;
-    }
+    private AnimalRepository animalRepository;
 
-    public Optional<Animal> getAnimal(int id) {
-//        Session session = entityManager.unwrap(Session.class);
-//        Animal animal = session.get(Animal.class, id);
-        return animalRepository.findById(id);
+    // this is where the circular references is declared so I initialize the constructor. why?
+//    @Autowired
+//    public AnimalRepositoryImpl(AnimalRepository animalRepository) {
+//        this.animalRepository = animalRepository;
+//    }
+
+    public Animal getAnimal(int id) {
+        return animalRepository.findById(id).get();
     }
 
     public List<Animal> getALLAnimals() {
-//        Session session = entityManager.unwrap(Session.class);
-//        Query<Animal> query = session.createQuery("from Animal", Animal.class);
-//        List<Animal> animals = query.getResultList();
         return (List<Animal>) animalRepository.findAll();
     }
 
     public void saveAnimal(Animal animal) {
         animalRepository.save(animal);
-//        Session session = entityManager.unwrap(Session.class);
-//        session.saveOrUpdate(animal);
-//        if (animal.getOwnerId() != 0) {
-//          personRepository.addAnimal(animal);
-//        }
     }
 
     public void deleteAnimal(int id) {
         animalRepository.deleteById(id);
-//        Session session = entityManager.unwrap(Session.class);
-//        session.remove(session.get(Animal.class, id));
     }
 
-//    public Animal updateAnimal(int id, Animal animal) {
-////        Session session = entityManager.unwrap(Session.class);
-////        session.update(String.valueOf(id), animal);
-//       return animalRepository.;
-//        return animal;
-    // }
-
-//    public List<Animal> getAnimalByPersonId(Integer personId) {
-//        Session session = entityManager.unwrap(Session.class);
-//        Query<Animal> query = session.createQuery("from Animal where ownerId = personId", Animal.class);
-//        List<Animal> animals = query.getResultList();
-//        return animals;
-//    }
+    public Animal updateAnimal(int id, Animal animal) {
+        if(animalRepository.existsById(id)){
+            animalRepository.findById(id).get().setName(animal.getName());
+        }
+        else {
+            animalRepository.save(animal);
+        }
+        return animal;
+     }
 }

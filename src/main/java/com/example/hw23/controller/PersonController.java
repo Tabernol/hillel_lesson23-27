@@ -37,7 +37,6 @@ public class PersonController {
     @PostMapping()
     public void saveAnimal(@RequestBody Person person) {
         personService.save(person);
-
     }
 
     @DeleteMapping("/{id}")

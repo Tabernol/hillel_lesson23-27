@@ -20,6 +20,9 @@ public class Animal {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "owner_id")
+    private int ownerId;
+
 //    @ManyToOne
 //    @JoinColumn(name = "owner_id", nullable = false)
 //    private Person ownerId;

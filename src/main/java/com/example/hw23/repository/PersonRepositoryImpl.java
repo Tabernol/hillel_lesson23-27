@@ -10,51 +10,36 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
 public class PersonRepositoryImpl {
-
-    private final EntityManager entityManager;
-    private AnimalRepositoryImpl animalRepository;
-    private Person person;
-
     @Autowired
-    public PersonRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    private PersonRepository personRepository;
+
 
     public Person getPerson(int id) {
-        Session session = entityManager.unwrap(Session.class);
-        Person person = session.get(Person.class, id);
-        return person;
+        return personRepository.findById(id).get();
     }
 
     public List<Person> getAllPersons() {
-        Session session = entityManager.unwrap(Session.class);
-        Query<Person> query = session.createQuery("from Person", Person.class);
-        List<Person> persons = query.getResultList();
-        return persons;
+        return (List<Person>) personRepository.findAll();
     }
 
     public void savePerson(Person person) {
-        Session session = entityManager.unwrap(Session.class);
-        session.saveOrUpdate(person);
+        personRepository.save(person);
     }
 
     public void deletePerson(int id) {
-        Session session = entityManager.unwrap(Session.class);
-        session.remove(session.get(Person.class, id));
+        personRepository.deleteById(id);
     }
 
     public Person updatePerson(int id, Person person) {
-        Session session = entityManager.unwrap(Session.class);
-        session.update(String.valueOf(id), person);
+        if (personRepository.existsById(id)) {
+            personRepository.findById(id).get().setSurname(person.getSurname());
+        }
+        else {
+            personRepository.save(person);
+        }
         return person;
     }
-
-//    public void addAnimal(Animal animal) {
-//        if (person.getPet() == null) {
-//            person.setPet(new ArrayList<>());
-//        }
-//        person.getPet().add(animal);
-//    }
 }

@@ -21,7 +21,7 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody Optional<Animal> getAnimal(@PathVariable Integer id) {
+    public @ResponseBody Animal getAnimal(@PathVariable Integer id) {
         return this.animalService.get(id);
     }
 
@@ -30,11 +30,11 @@ public class AnimalController {
         return animalService.getAll();
     }
 
-//    @PatchMapping("/{id}")
-//    @Transactional
-//    public @ResponseBody Animal updateAnimal(@PathVariable Integer id, @RequestBody Animal animal) {
-//        return this.animalService.update(id, animal);
-//    }
+    @PatchMapping("/{id}")
+    @Transactional
+    public @ResponseBody Animal updateAnimal(@PathVariable Integer id, @RequestBody Animal animal) {
+        return this.animalService.update(id, animal);
+    }
 
     @PostMapping()
     public void saveAnimal(@RequestBody Animal animal) {

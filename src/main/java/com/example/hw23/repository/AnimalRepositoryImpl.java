@@ -28,8 +28,9 @@ public class AnimalRepositoryImpl {
         return (List<Animal>) animalRepository.findAll();
     }
 
-    public void saveAnimal(Animal animal) {
+    public Animal saveAnimal(Animal animal) {
         animalRepository.save(animal);
+        return animal;
     }
 
     public void deleteAnimal(int id) {

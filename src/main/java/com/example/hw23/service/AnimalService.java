@@ -26,8 +26,9 @@ public class AnimalService {
         return animalRepository.getALLAnimals();
     }
 
-    public void save(Animal animal) {
+    public Animal save(Animal animal) {
         animalRepository.saveAnimal(animal);
+        return animal;
     }
 
     public void delete(int id) {

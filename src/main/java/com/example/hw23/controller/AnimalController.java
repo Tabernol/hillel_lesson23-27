@@ -37,8 +37,9 @@ public class AnimalController {
     }
 
     @PostMapping
-    public void saveAnimal(@RequestBody Animal animal) {
+    public Animal saveAnimal(@RequestBody Animal animal) {
         animalService.save(animal);
+        return animal;
 
     }
 

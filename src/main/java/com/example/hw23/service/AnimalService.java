@@ -34,8 +34,8 @@ public class AnimalService {
         animalRepository.deleteAnimal(id);
     }
 
-    public Animal update(int id, Animal animal) {
-        return animalRepository.updateAnimal(id, animal);
+    public Animal update(Animal animal) {
+        return animalRepository.updateAnimal(animal);
     }
 
 }

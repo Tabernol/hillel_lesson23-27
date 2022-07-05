@@ -36,13 +36,8 @@ public class AnimalRepositoryImpl {
         animalRepository.deleteById(id);
     }
 
-    public Animal updateAnimal(int id, Animal animal) {
-        if(animalRepository.existsById(id)){
-            animalRepository.findById(id).get().setName(animal.getName());
-        }
-        else {
-            animalRepository.save(animal);
-        }
+    public Animal updateAnimal(Animal animal) {
+        animalRepository.save(animal);
         return animal;
-     }
+    }
 }

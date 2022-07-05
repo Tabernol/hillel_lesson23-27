@@ -23,18 +23,18 @@ public class PersonController {
         return this.personService.get(id);
     }
 
-    @GetMapping()
+    @GetMapping
     public @ResponseBody List<Person> getAllPersons() {
         return personService.getAll();
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping
     @Transactional
-    public @ResponseBody Person updateAnimal(@PathVariable Integer id, @RequestBody Person person) {
-        return this.personService.update(id, person);
+    public @ResponseBody Person updateAnimal(@RequestBody Person person) {
+        return this.personService.update(person);
     }
 
-    @PostMapping()
+    @PostMapping
     public void saveAnimal(@RequestBody Person person) {
         personService.save(person);
     }

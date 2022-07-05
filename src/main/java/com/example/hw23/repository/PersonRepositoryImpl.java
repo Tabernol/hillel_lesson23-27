@@ -33,13 +33,8 @@ public class PersonRepositoryImpl {
         personRepository.deleteById(id);
     }
 
-    public Person updatePerson(int id, Person person) {
-        if (personRepository.existsById(id)) {
-            personRepository.findById(id).get().setSurname(person.getSurname());
-        }
-        else {
-            personRepository.save(person);
-        }
+    public Person updatePerson(Person person) {
+    personRepository.save(person);
         return person;
     }
 }

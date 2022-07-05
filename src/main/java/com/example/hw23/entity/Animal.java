@@ -15,7 +15,7 @@ public class Animal {
     @Id
     @Column(name = "id")
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private int animalId;
 
     @Column(name = "name")
     private String name;

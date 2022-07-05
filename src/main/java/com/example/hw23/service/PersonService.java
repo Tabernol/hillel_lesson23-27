@@ -32,7 +32,7 @@ public class PersonService {
         personRepository.deletePerson(id);
     }
 
-    public Person update(int id, Person person){
-        return personRepository.updatePerson(id,person);
+    public Person update(Person person){
+        return personRepository.updatePerson(person);
     }
 }

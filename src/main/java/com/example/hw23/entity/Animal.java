@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 
@@ -11,12 +12,13 @@ import javax.persistence.*;
 @Data
 @Builder
 @Table(name = "animals")
+//@RedisHash
 @NoArgsConstructor
 @AllArgsConstructor
 public class Animal {
     @Id
     @Column(name = "id")
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int animalId;
 
     @Column(name = "name")

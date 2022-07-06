@@ -3,13 +3,15 @@ package com.example.hw23.controller;
 import com.example.hw23.entity.Animal;
 import com.example.hw23.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/animal")
 public class AnimalController {
 
@@ -21,7 +23,9 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
+    @Cacheable(value = "animalId")
     public @ResponseBody Animal getAnimal(@PathVariable Integer id) {
+        System.out.println("Cache is working");
         return this.animalService.get(id);
     }
 

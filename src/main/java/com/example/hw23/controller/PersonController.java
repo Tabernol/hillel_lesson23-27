@@ -30,18 +30,18 @@ public class PersonController {
 
     @PatchMapping
     @Transactional
-    public @ResponseBody Person updateAnimal(@RequestBody Person person) {
+    public @ResponseBody Person updatePerson(@RequestBody Person person) {
         return this.personService.updatePerson(person);
     }
 
     @PostMapping
-    public void saveAnimal(@RequestBody Person person) {
+    public void savePerson(@RequestBody Person person) {
         personService.savePerson(person);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deleteAnimal(@PathVariable Integer id) {
+    public void deletePerson(@PathVariable Integer id) {
         this.personService.deletePerson(id);
     }
 }

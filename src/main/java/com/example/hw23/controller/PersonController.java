@@ -20,28 +20,28 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public @ResponseBody Person getPerson(@PathVariable Integer id) {
-        return this.personService.get(id);
+        return this.personService.getPerson(id);
     }
 
     @GetMapping
     public @ResponseBody List<Person> getAllPersons() {
-        return personService.getAll();
+        return personService.getAllPersons();
     }
 
     @PatchMapping
     @Transactional
     public @ResponseBody Person updateAnimal(@RequestBody Person person) {
-        return this.personService.update(person);
+        return this.personService.updatePerson(person);
     }
 
     @PostMapping
     public void saveAnimal(@RequestBody Person person) {
-        personService.save(person);
+        personService.savePerson(person);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public void deleteAnimal(@PathVariable Integer id) {
-        this.personService.delete(id);
+        this.personService.deletePerson(id);
     }
 }

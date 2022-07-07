@@ -1,42 +1,45 @@
 package com.example.hw23.service;
 
 import com.example.hw23.entity.Animal;
-import com.example.hw23.repository.AnimalRepositoryImpl;
+import com.example.hw23.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@EnableCaching
 public class AnimalService {
 
-    private final AnimalRepositoryImpl animalRepository;
+    private final AnimalRepository animalRepository;
 
     @Autowired
-    public AnimalService(AnimalRepositoryImpl animalRepository) {
+    public AnimalService(AnimalRepository animalRepository) {
         this.animalRepository = animalRepository;
     }
 
-    public Animal get(int id) {
-        return animalRepository.getAnimal(id);
+    @Cacheable(value = "animalId")
+    public Animal getAnimal(int id) {
+        System.out.println("Cache animal`s is working");
+        return animalRepository.findById(id).get();
     }
 
-    public List<Animal> getAll() {
-        return animalRepository.getALLAnimals();
+    public List<Animal> getAllAnimals() {
+        return (List<Animal>) animalRepository.findAll();
     }
 
-    public Animal save(Animal animal) {
-        animalRepository.saveAnimal(animal);
+    public Animal saveAnimal(Animal animal) {
+        animalRepository.save(animal);
         return animal;
     }
 
-    public void delete(int id) {
-        animalRepository.deleteAnimal(id);
+    public void deleteAnimal(int id) {
+        animalRepository.deleteById(id);
     }
 
-    public Animal update(Animal animal) {
-        return animalRepository.updateAnimal(animal);
+    public Animal updateAnimal(Animal animal) {
+        return animalRepository.save(animal);
     }
 
 }

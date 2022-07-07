@@ -21,6 +21,6 @@ public class Person {
     @Column(name = "surname")
     private String surname;
 
-    @OneToMany(mappedBy = "ownerId")
-    private List<Animal> pet;
+//    @OneToMany(mappedBy = "ownerId")
+//    private List<Animal> pet;
 }

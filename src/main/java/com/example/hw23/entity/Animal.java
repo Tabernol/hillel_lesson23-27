@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Data
 @Builder
 @Table(name = "animals")
-//@RedisHash
 @NoArgsConstructor
 @AllArgsConstructor
 public class Animal {

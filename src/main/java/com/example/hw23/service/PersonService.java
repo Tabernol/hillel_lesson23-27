@@ -30,8 +30,7 @@ public class PersonService {
     }
 
     public Person savePerson(Person person) {
-        personRepository.save(person);
-        return person;
+        return this.personRepository.save(person);
     }
 
     public void deletePerson(int id) {

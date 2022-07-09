@@ -30,8 +30,7 @@ public class AnimalService {
     }
 
     public Animal saveAnimal(Animal animal) {
-        animalRepository.save(animal);
-        return animal;
+       return this.animalRepository.save(animal);
     }
 
     public void deleteAnimal(int id) {

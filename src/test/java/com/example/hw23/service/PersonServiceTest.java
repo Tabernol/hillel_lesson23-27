@@ -5,8 +5,11 @@ import com.example.hw23.repository.PersonRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 class PersonServiceTest {
     private final PersonRepository personRepository = Mockito.mock(PersonRepository.class);
@@ -14,75 +17,63 @@ class PersonServiceTest {
 
     @Test
     void getPerson() {
-    }
-
-    @Test
-    void getAllPersons() {
-    }
-
-    @Test
-    void savePerson() {
-        Person person = Person.builder().personId(2).surname("Smith").build();
-
-        Mockito
-                .when(this.personRepository.save(Mockito.any()))
-                .thenReturn(person);
-
-        Assertions.assertEquals(person, personService.savePerson(person));
-        Mockito.verify(this.personRepository).save(person);
-    }
-
-    @Test
-    void deletePerson() {
-    }
-
-    @Test
-    void updatePerson() {
-    }
-
-
-
-
-
-
-    @Test
-    public void testCreate() {
-
-    }
-
-    @Test
-    public void testRead() {
-        var person = Person.builder().id(321).name("Peter").build();
+        Person smith = Person.builder().personId(2).surname("Smith").build();
 
         Mockito
                 .when(this.personRepository.findById(Mockito.anyInt()))
-                .thenReturn(Optional.of(person))
-        ;
+                .thenReturn(Optional.of(smith));
 
-        Assertions.assertEquals(person, this.personService.read(Mockito.anyInt()));
+        Assertions.assertEquals(smith, personService.getPerson(Mockito.anyInt()));
         Mockito.verify(this.personRepository).findById(Mockito.anyInt());
     }
 
     @Test
-    public void testUpdate() {
-        var receivedPerson = Person.builder().id(321).name("Peter").build();
-        var existPerson = Person.builder().id(321).name("Peter Parker").build();
+    void getAllPersons() {
+        Person Smith = Person.builder().personId(1).surname("Smith").build();
+        Person John = Person.builder().personId(2).surname("John").build();
+        Person Grey = Person.builder().personId(3).surname("Grey").build();
+        List<Person> persons = new ArrayList<>();
+        persons.add(Smith);
+        persons.add(John);
+        persons.add(Grey);
 
         Mockito
-                .when(this.personRepository.findById(Mockito.any()))
-                .thenReturn(Optional.of(existPerson))
-        ;
-
-        Assertions.assertTrue(this.personService.update(receivedPerson));
-        Mockito.verify(this.personRepository).save(receivedPerson);
+                .when(this.personRepository.findAll())
+                .thenReturn(persons);
+        Assertions.assertEquals(persons, personService.getAllPersons());
+        Mockito.verify(this.personRepository).findAll();
     }
 
     @Test
-    public void testDelete() {
-        var person = Person.builder().id(321).name("Peter").build();
+    void savePerson() {
+        Person smith = Person.builder().personId(2).surname("Smith").build();
+        Person john = Person.builder().personId(1).surname("john").build();
 
-        this.personService.delete(person.getId());
+        Mockito
+                .when(this.personRepository.save(Mockito.any()))
+                .thenReturn(smith);
 
+        Assertions.assertEquals(smith, personService.savePerson(john));
+        Mockito.verify(this.personRepository).save(john);
+    }
+
+    @Test
+    void deletePerson() {
+        Person smith = Person.builder().personId(2).surname("Smith").build();
+        personService.deletePerson(smith.getPersonId());
         Mockito.verify(this.personRepository).deleteById(Mockito.anyInt());
+    }
+
+    @Test
+    void updatePerson() {
+        Person smith = Person.builder().personId(2).surname("Smith").build();
+        Person john = Person.builder().personId(1).surname("john").build();
+
+        Mockito
+                .when(this.personRepository.save(Mockito.any()))
+                .thenReturn(smith);
+
+        Assertions.assertEquals(smith, this.personService.updatePerson(john));
+        Mockito.verify(this.personRepository).save(john);
     }
 }

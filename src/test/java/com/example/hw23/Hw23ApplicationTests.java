@@ -9,16 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class Hw23ApplicationTests {
-    @Autowired
-    private AnimalController animalController;
-
-    @Autowired
-    private PersonController personController;
 
     @Test
     void contextLoads() {
-        Assertions.assertNotNull(this.animalController);
-        Assertions.assertNotNull(this.personController);
+
     }
 
 }

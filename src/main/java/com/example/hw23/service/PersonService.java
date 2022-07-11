@@ -29,8 +29,8 @@ public class PersonService {
         return (List<Person>) personRepository.findAll();
     }
 
-    public void savePerson(Person person) {
-        personRepository.save(person);
+    public Person savePerson(Person person) {
+        return this.personRepository.save(person);
     }
 
     public void deletePerson(int id) {

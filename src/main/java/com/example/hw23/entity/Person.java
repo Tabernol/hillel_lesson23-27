@@ -16,13 +16,13 @@ import java.util.List;
 @Table(name = "persons")
 public class Person {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int personId;
 
     @Column(name = "surname")
     private String surname;
 
-    @OneToMany(mappedBy = "ownerId")
+    @OneToMany(mappedBy = "ownerId", cascade = CascadeType.ALL)
     private List<Animal> pet;
 }

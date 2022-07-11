@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 
@@ -16,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Animal {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int animalId;
 
@@ -26,7 +25,4 @@ public class Animal {
     @Column(name = "owner_id")
     private int ownerId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "owner_id", nullable = false)
-//    private Person ownerId;
 }

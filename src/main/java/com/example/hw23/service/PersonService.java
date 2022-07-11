@@ -1,38 +1,43 @@
 package com.example.hw23.service;
 
-import com.example.hw23.entity.Animal;
 import com.example.hw23.entity.Person;
-import com.example.hw23.repository.PersonRepositoryImpl;
+import com.example.hw23.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@EnableCaching
 public class PersonService {
-    private final PersonRepositoryImpl personRepository;
-@Autowired
-    public PersonService(PersonRepositoryImpl personRepository) {
+    private final PersonRepository personRepository;
+
+    @Autowired
+    public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
-    public Person get(int id) {
-        return personRepository.getPerson(id);
+    @Cacheable(value = "personId")
+    public Person getPerson(int id) {
+        System.out.println("cache person`s is working");
+        return personRepository.findById(id).get();
     }
 
-    public List<Person> getAll() {
-        return personRepository.getAllPersons();
+    public List<Person> getAllPersons() {
+        return (List<Person>) personRepository.findAll();
     }
 
-    public void save(Person person) {
-        personRepository.savePerson(person);
+    public Person savePerson(Person person) {
+        return this.personRepository.save(person);
     }
 
-    public void delete(int id) {
-        personRepository.deletePerson(id);
+    public void deletePerson(int id) {
+        personRepository.deleteById(id);
     }
 
-    public Person update(Person person){
-        return personRepository.updatePerson(person);
+    public Person updatePerson(Person person) {
+        return personRepository.save(person);
     }
 }

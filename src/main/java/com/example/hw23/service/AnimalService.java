@@ -1,44 +1,55 @@
 package com.example.hw23.service;
 
 import com.example.hw23.entity.Animal;
-import com.example.hw23.repository.AnimalRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
 @EnableCaching
 public class AnimalService {
 
-    private final AnimalRepository animalRepository;
+//    private final EntityManager entityManager;
+    private final SessionFactory factory;
 
     @Autowired
-    public AnimalService(AnimalRepository animalRepository) {
-        this.animalRepository = animalRepository;
+    public AnimalService(SessionFactory factory) {
+        this.factory = factory;
+//        this.entityManager = entityManager;
     }
 
     @Cacheable(value = "animalId")
     public Animal getAnimal(int id) {
         System.out.println("Cache animal`s is working");
-        return animalRepository.findById(id).get();
+       return factory.unwrap(Session.class).get(Animal.class, id);
     }
 
     public List<Animal> getAllAnimals() {
-        return (List<Animal>) animalRepository.findAll();
+       return factory.unwrap(Session.class)
+               .createQuery("from Animal", Animal.class).getResultList();
+
     }
 
     public Animal saveAnimal(Animal animal) {
-       return this.animalRepository.save(animal);
+      factory.unwrap(Session.class).save(animal);
+        return animal;
     }
 
     public void deleteAnimal(int id) {
-        animalRepository.deleteById(id);
+       factory.unwrap(Session.class)
+                .createQuery("DELETE from Animal " + "WHERE id =: animalId")
+                .setParameter("animalId", id)
+                .executeUpdate();
     }
 
     public Animal updateAnimal(Animal animal) {
-        return animalRepository.save(animal);
+       factory.unwrap(Session.class).saveOrUpdate(animal);
+        return animal;
     }
-
 }

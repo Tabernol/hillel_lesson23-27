@@ -24,5 +24,4 @@ public class Animal {
 
     @Column(name = "owner_id")
     private int ownerId;
-
 }
